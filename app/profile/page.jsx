@@ -5,10 +5,11 @@ import AlertEdit from "../utils/AlertEdit";
 import { useRouter, useSearchParams } from "next/navigation";
 import HandleProfileData from "../Components/Profile";
 
-const Profilepage = () => {
+const ProfilePageContent = () => {
   const [showAlert, setShowAlert] = useState(false);
   const router = useRouter();
   const queryParams = useSearchParams();
+
   useEffect(() => {
     const edited = queryParams.get("edited");
 
@@ -23,7 +24,7 @@ const Profilepage = () => {
     }, 3000);
 
     return () => clearTimeout(timeout);
-  }, [router]);
+  }, [queryParams, router]);
 
   return (
     <div className="mt-10 ml-5">
@@ -31,10 +32,16 @@ const Profilepage = () => {
       <h2 className="head_text text-left text-secondary">My Profile</h2>
       <h2 className="text-gray-500 text-left mt-5">View your own post.</h2>
 
-      <Suspense fallback={<div>Loading...</div>}>
-        <HandleProfileData />
-      </Suspense>
+      <HandleProfileData />
     </div>
+  );
+};
+
+const Profilepage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ProfilePageContent />
+    </Suspense>
   );
 };
 
