@@ -1,6 +1,6 @@
 import React, { Suspense } from 'react';
-import EditPost from './EditPost'; // adjust the import path as needed
 
+import EditPost from '../Components/EditPost';
 const EditPostPage = () => {
   return (
     <div className='mt-10 ml-5'>
