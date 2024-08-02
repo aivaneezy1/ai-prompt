@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Profile from "../Components/Profile";
 import AlertEdit from "../utils/AlertEdit";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -10,7 +10,6 @@ const Profilepage = () => {
   const router = useRouter();
   const queryParams = useSearchParams();
   useEffect(() => {
-    
     const edited = queryParams.get("edited");
 
     if (edited) {
@@ -19,9 +18,8 @@ const Profilepage = () => {
       router.replace("/profile", undefined, { shallow: true });
     }
 
-      const timeout = setTimeout(() => {
-      setShowAlert(false);  
-      
+    const timeout = setTimeout(() => {
+      setShowAlert(false);
     }, 3000);
 
     return () => clearTimeout(timeout);
@@ -32,7 +30,10 @@ const Profilepage = () => {
       {showAlert && <AlertEdit />}
       <h2 className="head_text text-left text-secondary">My Profile</h2>
       <h2 className="text-gray-500 text-left mt-5">View your own post.</h2>
-      <HandleProfileData/>
+
+      <Suspense fallback={<div>Loading...</div>}>
+        <HandleProfileData />
+      </Suspense>
     </div>
   );
 };
