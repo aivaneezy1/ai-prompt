@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+.head_text{
+    @apply font-extrabold mt-5 text-5xl sm:text-6xl
+}
